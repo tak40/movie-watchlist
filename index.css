@@ -2,7 +2,7 @@
 
 * {
     box-sizing: border-box;
-    outline: 2px dotted tomato;
+    /* outline: 2px dotted tomato; */
 }
 
 html {
@@ -35,15 +35,16 @@ header {
     background: #1C1C1C;
     color: #FFFFFF;
     width: 100%;
-    height: 20vh;
-    background-image: url(images/movieset.png);
+    height: 15vh;
+    padding-bottom: 1.5em;
+    background-image: url(images/headerbackground.png);
     background-size: cover;
     background-position: center;
 }
 
 .header-title {
     font-weight: 800;
-    font-size: 2rem;
+    font-size: 1.75rem;
 }
 
 .header-container a {
@@ -253,7 +254,7 @@ footer {
 .footer-icon-container {
     display: flex;
     justify-content: center;
-    gap: 2em;
+    gap: 1.5em;
 }
 
 .footer-icon {
