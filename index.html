@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <head>
+        <title>Movie Watchlist</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Movie Watchlist">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="index.css">
+
+        <!-- Import Font Awesome icons for the footer -->
+        <script src="https://kit.fontawesome.com/e5f441b479.js" crossorigin="anonymous"></script>
+        
+        <!-- Add a favicon to the tab -->
+        <link rel="icon" href="images/tabicon.png" type="image/x-icon">
     </head>
     <body>
+
         <header>
             <div class='header-container'>
                 <h1 class='header-title'>Find your film</h1>
@@ -20,9 +31,29 @@
                 <button id='search-btn' class='search-btn'>Search</button>
             </div>
         </header>
+
         <main id='movies-container' class='movies-container'>
             <!-- Placeholder for the API calls -->
         </main>
+
+        <footer>
+            <nav id="footer-icon" class="footer-icon-container">
+                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" aria-label='Github'>
+                    <i id="github" class="fa-brands fa-github fa-xl footer-icon"></i>
+                </a>
+                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" aria-label='LinkedIn'>
+                    <i class="fa-brands fa-linkedin fa-xl footer-icon"></i>
+                </a>
+                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" aria-label='Twitter'>
+                    <i class="fa-brands fa-twitter fa-xl footer-icon"></i>
+                </a>
+            </nav>
+            
+            <div class='footer-text'>
+                <p>Developed by TK ☕</p>
+            </div>
+        </footer>
+
         <script src="index.js" type="module"></script>
     </body>
 </html>
