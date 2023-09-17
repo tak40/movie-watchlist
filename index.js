@@ -1,12 +1,13 @@
 const searchBtn = document.getElementById('search-btn')
-const searchInput = document.getElementById('search-input')
+const searchInput = document.getElementById('search-input');
+const searchForm = document.getElementById('search-form')
 let moviesContainer = document.getElementById('movies-container')
 
 // Get the movie IDs from local storage
 let movieIdArray = JSON.parse(localStorage.getItem("movieData")) || []
 
-// Search movie on button click
-searchBtn.addEventListener('click', function(){
+searchForm.addEventListener('submit', function(e){
+    e.preventDefault()
     const searchTerm = searchInput.value
     searchMovies(searchTerm)
     searchInput.value = ""
@@ -47,19 +48,19 @@ async function fetchAndDisplayMovieDetails(imdbID) {
     const response = await fetch(apiUrl)
     const data = await response.json()
     const htmlString = `
-        <section class='movie-container'>
+        <article class='movie-container'>
             <img class='movie-poster' src='${data.Poster}' alt='Movie poster for ${data.Title}'>
             <div class='movie-info-container'>
                 <div class='movie-info-top-row'>
                     <h3 class='movie-title'>${data.Title}</h3>
-                    <img src='images/star.svg' class='star-icon'>
+                    <img src='images/star.svg' class='star-icon' alt='Star Icon'>
                     <p class='movie-rating'>${data.imdbRating}</p>
                 </div>
                 <div class='movie-info-mid-row'>
                     <p class='movie-runtime'>${data.Runtime}</p>
                     <p class='movie-genre'>${data.Genre}</p>
                     <button class='watchlist-btn' data-imdbID=${imdbID}>
-                        <img src="images/plus.svg" class='watchlist-icon' alt=""> 
+                        <img src="images/plus.svg" class='watchlist-icon' alt='Plus Icon'> 
                         Watchlist
                     </button>
                 </div>
@@ -67,7 +68,7 @@ async function fetchAndDisplayMovieDetails(imdbID) {
                     <p class='plot-text'>${data.Plot}</p>
                 </div>
             </div>
-        </section>
+        </article>
     `
     moviesContainer.innerHTML += htmlString
     
