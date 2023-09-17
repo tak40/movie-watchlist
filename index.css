@@ -4,6 +4,11 @@
     --clr-primary: #1C1C1C;
     --clr-secondary: #374151;
     --clr-accent: #dcdcdc;   /* combines hover and other similar shades */
+    --clr-accent-gold: #d4af37;
+    --clr-hover-bg: rgba(220, 220, 220, 0.6);  /* 60% opacity of --clr-accent */
+    --clr-active-bg: rgba(220, 220, 220, 0.7); /* 70% opacity of --clr-accent */
+    --clr-active: #c2c2c2;  /* a slightly darker shade than --clr-accent */
+    --clr-active-text: #1C1C1C;
     --clr-text-light: #F9FAFB; /* an intuitive name for a light text color */
     --clr-text-dark: #0d1618;  /* combines active-text and other dark shades */
     --clr-placeholder: #6B7280;
@@ -18,8 +23,11 @@
     --font-size-xsmall: 0.75rem;
 
     /* BORDERS */
+    --border-radius-base: 6px;
     --border-style-base: 1px solid #9CA3AF;
     --border-style-accent: 2px solid #E5E7EB;
+
+    --transform-transition: transform 0.3s ease-in-out;
 }
 
 /* ----- GLOBAL STYLES ----- */
@@ -39,7 +47,7 @@ input, textarea, button, select {
 }
 
 html {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 html, body {
@@ -82,13 +90,11 @@ body {
 
 .header__nav-link {
     text-decoration: none;
+    padding: 0.125em 0.25em;
+    border-radius: var(--border-radius-base);
     color: var(--clr-text-light);
-    font-size: var(--font-size-medium);
+    font-size: var(--font-size-semi-medium);
     font-weight: 700;
-}
-
-.header__nav-link:hover {
-    color: var(--clr-accent);
 }
 
 /* ----- SEARCH BAR ----- */
@@ -103,7 +109,7 @@ body {
     right: 50%;
     background: white;
     border: var(--border-style-base);
-    border-radius: 6px;
+    border-radius: var(--border-radius-base);
 }
 
 .search__input-container {
@@ -121,25 +127,23 @@ body {
 
 .search__input {
     border: none;
-    line-height: 20px; 
+    line-height: 25px; 
     width: 100%;
 }
 
 .search__btn {
     font-weight: 500;
-    color: var(--clr-secondary);
+    color: var(--clr-placeholder);
     background-color: var(--clr-text-light);
     border: none;
-    line-height: 20px; 
+    border-radius: 0 6px 6px 0;
+    line-height: 25px; 
     width: 120px;
     padding: 9px 11px 9px 17px;
+    outline: dotted red;
 }
 
-.search__btn:hover {
-    background-color: var(--clr-accent);
-    color: var(--clr-text-dark);
-    cursor: pointer;
-}
+
 
 .visually-hidden {
     position: absolute !important;
@@ -159,6 +163,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     color: var(--clr-main-bg);
 }
 
@@ -171,11 +176,6 @@ body {
     align-items: center;
     text-decoration: none;
     color: var(--clr-text-dark);
-}
-
-.movies__plus-icon {
-    margin: 0 1em;
-    width: 1.125em;
 }
 
 /* SEARCH ERROR */
@@ -261,9 +261,10 @@ body {
 }
 
 .movies__watchlist-btn,
-.remove-btn {
+.movies__remove-btn {
     display: flex;
     align-items: center;
+    padding: 0.125em 0.25em;
     gap: 0.5em;
     background: none;
     border: none;
@@ -305,6 +306,49 @@ body {
     text-decoration: none;
 }
 
+/* ----- HOVER, FOCUS, ACTIVE STATES ----- */
+
+.search__btn:hover,
+.header__nav-link:hover,
+.movies__watchlist-btn:hover,
+.movies__remove-btn:hover {
+    border: var(--border-style-base);
+    background-color: var(--clr-hover-bg);
+    color: var(--clr-text-dark);
+    border-radius: var(--border-radius-base);
+    cursor: pointer;
+}
+
+.header__nav-link:active,
+.search__btn:active,
+.movies__watchlist-btn:active,
+.movies__remove-btn:active {
+    color: var(--clr-active-text);
+    background-color: var(--clr-active-bg);
+    transform: scale(0.95);
+    transition: var(--transform-transition);
+}
+
+.header__nav-link:focus,
+.search__input:focus,
+.search__btn:focus,
+.movies__watchlist-btn:focus,
+.movies__remove-btn:focus,
+.footer__icon-link:focus {
+    outline: 2px solid var(--clr-accent-gold);
+    border-radius: var(--border-radius-base);
+}
+
+.search__btn, 
+.header__nav-link, 
+.movies__watchlist-btn, 
+.movies__remove-btn {
+    border-style: solid;
+    border-width: 1px;
+    border-color: transparent; /* So it's invisible by default */
+    transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
 /* ----- MEDIA QUERIES ------ */
 
 /* Tablet */
@@ -333,6 +377,7 @@ body {
 
     .header__nav-link {
         font-size: var(--font-size-xsmall);
+        padding: 0.5em 1em;
     }
 }
 
