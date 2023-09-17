@@ -1,21 +1,29 @@
-# Movie Watchlist
+# Movie Watchlist App
 
-Quick start:
+## Table of Contents
+- [Overview](#overview)
+- [Requirements](#requirements)
+- [Personal Stretch Goals](#personal-stretch-goals)
 
-```
-$ npm install
-$ npm start
-````
+## Overview
+This project is part of Scrimba's Frontend Career Path. Specifically, it belongs to Module 8: Working with APIs.
 
-Head over to https://vitejs.dev/ to learn more about using vite
-## About Scrimba
+## Requirements
+This is a solo project provided by Scrimba. The guidelines are as follows:
 
-At Scrimba our goal is to create the best possible coding school at the cost of a gym membership! 💜
-If we succeed with this, it will give anyone who wants to become a software developer a realistic shot at succeeding, regardless of where they live and the size of their wallets 🎉
-The Frontend Developer Career Path aims to teach you everything you need to become a Junior Developer, or you could take a deep-dive with one of our advanced courses 🚀
+![Scrimba Guideline Image](images/requirements.png)
 
-- [Our courses](https://scrimba.com/allcourses)
-- [The Frontend Career Path](https://scrimba.com/learn/frontend)
-- [Become a Scrimba Pro member](https://scrimba.com/pricing)
+- **Build from scratch**
+- **Two pages**: `index.html` and `watchlist.html`.
+  - `Index` = Search page. It calls the OMDB API with the title searched for and displays the search results.
+  - Button functionality to "add to watchlist", which saves the movie data to local storage.
+  - `Watchlist.html` loads and displays movies from local storage.
 
-Happy Coding!
+## Figma File
+The design mockups for the project can be found [here](https://www.figma.com/file/jhFRdFIdHpRxsDznNXtpXw/Movie-Watchlist?node-id=2%3A17&mode=dev).
+
+## Personal Stretch Goals
+- **Focus on Accessibility**: Ensuring that the application is usable by as many people as possible.
+- **CSS Refactor**: Implementation of CSS Variables and the BEM naming convention for better maintainability.
+- **UI/UX Improvement**: Enhancing the user interface and overall user experience.
+- **Additional Page for Movie Details**: To provide users with more in-depth information about a particular movie.
