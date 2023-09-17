@@ -1,8 +1,41 @@
+/* ----- VARIABLES ----- */
+:root {
+    /* COLORS */
+    --clr-primary: #1C1C1C;
+    --clr-secondary: #374151;
+    --clr-accent: #dcdcdc;   /* combines hover and other similar shades */
+    --clr-text-light: #F9FAFB; /* an intuitive name for a light text color */
+    --clr-text-dark: #0d1618;  /* combines active-text and other dark shades */
+    --clr-placeholder: #6B7280;
+    --clr-main-bg: #DFDDDD;
+
+    /* FONT SIZES */
+    --font-size-base: 1rem;
+    --font-size-large: 1.75rem;
+    --font-size-medium: 1.5rem;
+    --font-size-semi-medium: 1.125rem;
+    --font-size-small: 0.875rem;
+    --font-size-xsmall: 0.75rem;
+
+    /* BORDERS */
+    --border-style-base: 1px solid #9CA3AF;
+    --border-style-accent: 2px solid #E5E7EB;
+}
+
 /* ----- GLOBAL STYLES ----- */
 
-* {
+*, *::before, *::after {
     box-sizing: border-box;
     /* outline: 2px dotted tomato; */
+}
+
+img, picture, svg, video {
+    display: block;
+    max-width: 100%;
+}
+
+input, textarea, button, select {
+    font: inherit;
 }
 
 html {
@@ -32,8 +65,8 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: #1C1C1C;
-    color: #FFFFFF;
+    background: var(--clr-primary);
+    color: var(--clr-text-light);
     width: 100%;
     height: 15vh;
     padding-bottom: 1.5em;
@@ -43,20 +76,22 @@ body {
 }
 
 .header__title {
+    font-size: var(--font-size-large);
     font-weight: 800;
-    font-size: 1.75rem;
 }
 
 .header__nav-link {
     text-decoration: none;
-    color: #FFFFFF;
+    color: var(--clr-text-light);
+    font-size: var(--font-size-medium);
     font-weight: 700;
-    font-size: 1.5rem;
 }
 
 .header__nav-link:hover {
-    color: gray;
+    color: var(--clr-accent);
 }
+
+/* ----- SEARCH BAR ----- */
 
 .search {
     display: flex;
@@ -64,10 +99,10 @@ body {
     align-items: center;
     position: absolute;
     transform: translate(50%, -50%);
+    width: 80%;
     right: 50%;
     background: white;
-    width: 80%;
-    border: 1px solid #9CA3AF;
+    border: var(--border-style-base);
     border-radius: 6px;
 }
 
@@ -92,18 +127,17 @@ body {
 
 .search__btn {
     font-weight: 500;
-    color: #374151;
-    background-color: #F9FAFB;
+    color: var(--clr-secondary);
+    background-color: var(--clr-text-light);
     border: none;
-    border-radius: 0px 6px 6px 0px;
     line-height: 20px; 
     width: 120px;
     padding: 9px 11px 9px 17px;
 }
 
 .search__btn:hover {
-    background-color: #dcdcdc;
-    color: #0d1618;
+    background-color: var(--clr-accent);
+    color: var(--clr-text-dark);
     cursor: pointer;
 }
 
@@ -121,23 +155,22 @@ body {
 
 /* DEFAULT SCREEN  */
 
-.movies__default-screen,
-.dmovies__default-screen {
+.movies__default-screen {
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #DFDDDD;
+    color: var(--clr-main-bg);
 }
 
 .movies__default-text {
-    font-size: 1.125em;
+    font-size: var(--font-size-medium);
 }
 
 .movies__default-nav-text {
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: #363636;
+    color: var(--clr-text-dark);
 }
 
 .movies__plus-icon {
@@ -148,12 +181,12 @@ body {
 /* SEARCH ERROR */
 
 .movies__error-text {
-    font-size: 1.125em;
+    font-size: var(--font-size-semi-medium);
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 15em;
-    color: #DFDDDD;
+    color: var(--clr-main-bg);
     height: 100vh;
 }
 
@@ -163,7 +196,7 @@ body {
     display: flex;
     width: 80%;
     margin: 0 auto;
-    border-bottom: 2px solid #E5E7EB;
+    border-bottom: var(--border-style-accent);
     padding: 1em 0;
 }
 
@@ -182,11 +215,6 @@ body {
     align-items: center;
 }
 
-.movies__info-middle {
-    font-size: 0.875em;
-    line-height: 20px;
-}
-
 .movies__poster{
     width: 9em;
     object-fit: contain;
@@ -201,7 +229,7 @@ body {
 }
 
 .movies__title {
-    font-size: 1.125em;
+    font-size: var(--font-size-semi-medium);
     font-weight: 500;
 }
 
@@ -212,16 +240,18 @@ body {
 }
 
 .movies__rating {
-    color: #111827;
-    font-size: 0.75em;
+    color: var(--clr-text-dark);
+    font-size: var(--font-size-xsmall);
 }
 
 /* MID ROW */
 
 .movies__info-middle {
+    font-size: var(--font-size-small);
+    line-height: 20px;
     justify-content: space-between;
     padding-right: 3em;
-    color: #111827;
+    color: var(--clr-text-dark);
     width: 100%;
 }
 
@@ -246,8 +276,8 @@ body {
 /* BOTTOM ROW */
 
 .movies__plot {
-    color: #6B7280;
-    font-size: 0.875em;
+    color: var(--clr-placeholder);
+    font-size: var(--font-size-small);
     line-height: 20px;
     margin: 0;
 }
@@ -266,20 +296,31 @@ body {
 }
 
 .footer__icon {
-    font-size: 1.5rem;
+    font-size: var(--font-size-medium);
     margin: 0.75em;
 }
 
 .footer__icon-link {
-    color: var(--color-primary);
+    color: var(--clr-primary);
     text-decoration: none;
 }
 
-/* Mobile first styles go here */
+/* ----- MEDIA QUERIES ------ */
 
 /* Tablet */
 @media (min-width: 768px) {
     /* Tablet styles go here */
+
+    :root {
+        /* FONT SIZES */
+        --font-size-base: 1rem;
+        --font-size-large: 2.625rem;
+        --font-size-medium: 2.25rem;
+        --font-size-semi-medium: 1.69rem;
+        --font-size-small: 1.31rem;
+        --font-size-xsmall: 1.125rem;
+    }
+
     .header__container {
         flex-direction: row;
         justify-content: space-around;
@@ -287,11 +328,11 @@ body {
     }
 
     .header__title {
-        font-size: 2.67rem;
+        font-size: var(--font-size-large);
     }
 
     .header__nav-link {
-        font-size: 0.875em;
+        font-size: var(--font-size-xsmall);
     }
 }
 
