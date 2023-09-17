@@ -43,7 +43,7 @@ async function fetchAndDisplayMovieDetails(imdbID, callback) {
                     <p class='movie-runtime'>${data.Runtime}</p>
                     <p class='movie-genre'>${data.Genre}</p>
                     <button class='remove-btn' data-imdbID=${imdbID}>
-                        <img src="images/remove.svg" class='remove-icon' alt=""> 
+                        <img src="images/remove.svg" class='remove-icon' alt="Remove Button"> 
                         Remove
                     </button>
                 </div>
