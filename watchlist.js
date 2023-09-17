@@ -1,14 +1,14 @@
-let moviesContainer = document.getElementById('movies-container')
+let moviesContainer = document.getElementById('movies')
 // Get the movie IDs from local storage
 let movieIdArray = JSON.parse(localStorage.getItem("movieData")) || []
 
 // Initial screen setup
 function defaultScreen() {
     const defaultScreenHtmlString = `
-        <section class='default-watchlist-screen'>
-            <p class='default-text'>Your watchlist is looking a little empty...</p>
-            <div class='default-navigation-container'>
-                <a class='default-navigation-text' href='index.html'><img src='images/plus.svg' class='plus-icon'>Let’s add some movies!</a>
+        <section class='movies__default-screen'>
+            <p class='movies__default-text'>Your watchlist is looking a little empty...</p>
+            <div class='movies__default-nav-container'>
+                <a class='movies__default-nav-text' href='index.html'><img src='images/plus.svg' class='movies__plus-icon'>Let’s add some movies!</a>
             </div>
         </section> 
     `
@@ -31,27 +31,27 @@ async function fetchAndDisplayMovieDetails(imdbID, callback) {
     const response = await fetch(apiUrl)
     const data = await response.json()
     const getMovieDetailsHtmlString = `
-        <section class='movie-container'>
-            <img class='movie-poster' src='${data.Poster}' alt='Movie poster for ${data.Title}'>
-            <div class='movie-info-container'>
-                <div class='movie-info-top-row'>
-                    <h3 class='movie-title'>${data.Title}</h3>
-                    <img src='images/star.svg' class='star-icon'>
-                    <p class='movie-rating'>${data.imdbRating}</p>
+        <article class='movies__movie'>
+            <img class='movies__poster' src='${data.Poster}' alt='Movie poster for ${data.Title}'>
+            <div class='movies__info'>
+                <div class='movies__info-top'>
+                    <h3 class='movies__title'>${data.Title}</h3>
+                    <img src='images/star.svg' class='movies__star-icon'>
+                    <p class='movies__rating'>${data.imdbRating}</p>
                 </div>
-                <div class='movie-info-mid-row'>
-                    <p class='movie-runtime'>${data.Runtime}</p>
-                    <p class='movie-genre'>${data.Genre}</p>
-                    <button class='remove-btn' data-imdbID=${imdbID}>
-                        <img src="images/remove.svg" class='remove-icon' alt="Remove Button"> 
+                <div class='movies__info-middle'>
+                    <p class='movies__runtime'>${data.Runtime}</p>
+                    <p class='movies__genre'>${data.Genre}</p>
+                    <button class='movies__remove-btn' data-imdbID=${imdbID}>
+                        <img src="images/remove.svg" class='movies__remove-icon' alt="Remove Button"> 
                         Remove
                     </button>
                 </div>
-                <div class='movie-info-bottom-row'>
-                    <p class='plot-text'>${data.Plot}</p>
+                <div class='movies__info-bottom'>
+                    <p class='movies__plot'>${data.Plot}</p>
                 </div>
             </div>
-        </section>
+        </article>
     `
     callback(getMovieDetailsHtmlString)
 }
@@ -64,7 +64,7 @@ function renderMovieHtml(movieHtml) {
 
 // Attach click listeners to remove buttons
 function attachRemoveBtnListeners() {
-    const removeBtns = document.querySelectorAll('.remove-btn');
+    const removeBtns = document.querySelectorAll('.movies__remove-btn');
     removeBtns.forEach(btn => {
         btn.addEventListener('click', function(e) {
             const movieId = e.target.dataset.imdbid
