@@ -16,41 +16,41 @@
 
     </head>
     <body>
-        <header role="banner">
-            <div class='header-container'>
-                <h1 class='header-title'>Find your film</h1>
-                <a href='watchlist.html' class='navigation-link'>My Watchlist</a>
+        <header class="header" role="banner">
+            <div class='header__container'>
+                <h1 class='header__title'>Find your film</h1>
+                <a href='watchlist.html' class='header__nav-link'>My Watchlist</a>
             </div>
-            <form id='search-form' class='search-bar-container' action="#">
-                <div class='input-container'>
-                    <img src='images/Search.svg' class='search-icon' alt='Search Icon'>
+            <form id='search-form' class='search' action="#">
+                <div class='search__input-container'>
+                    <img src='images/Search.svg' class='search__icon' alt='Search Icon'>
                     <label for="search-input" class="visually-hidden">Search for a movie:</label>
-                    <input type="text" id="search-input" class="search-input" placeholder="Search for a movie">
+                    <input type="text" id="search-input" class="search__input" placeholder="Search for a movie">
                 </div>
-                <button type='submit' class='search-btn'>Search</button>
+                <button id="search-btn" type='submit' class='search__btn'>Search</button>
             </form>
         </header>
 
         <main role="main">
-            <section id='movies-container' class='movies-container'>
+            <section id='movies' class='movies'>
                 <!-- Rendered in JS -->
             </section>
         </main>
 
-        <footer role="contentinfo">
-            <nav id="footer-icon" class="footer-icon-container" role="navigation">
-                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" aria-label='Github' title="Visit my Github">
-                    <i id="github" class="fa-brands fa-github fa-xl footer-icon"></i>
+        <footer class="footer" role="contentinfo">
+            <nav id="footer-icon" class="footer__icon-container" role="navigation">
+                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="footer__icon-link" aria-label='Github' title="Visit my Github">
+                    <i id="github" class="fa-brands fa-github fa-xl footer__icon"></i>
                 </a>
-                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" aria-label='LinkedIn' title="Visit my LinkedIn">
-                    <i class="fa-brands fa-linkedin fa-xl footer-icon"></i>
+                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="footer__icon-link" aria-label='LinkedIn' title="Visit my LinkedIn">
+                    <i class="fa-brands fa-linkedin fa-xl footer__icon"></i>
                 </a>
-                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" aria-label='Twitter' title="Follow me on Twitter">
-                    <i class="fa-brands fa-twitter fa-xl footer-icon"></i>
+                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="footer__icon-link" aria-label='Twitter' title="Follow me on Twitter">
+                    <i class="fa-brands fa-twitter fa-xl footer__icon"></i>
                 </a>                
             </nav>
             
-            <div class='footer-text'>
+            <div class='footer__text'>
                 <p>Developed by TK ☕</p>
             </div>
         </footer>
