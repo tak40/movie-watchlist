@@ -1,4 +1,8 @@
-let moviesContainer = document.getElementById('movies')
+// Constants
+const BASE_API_URL = 'https://omdbapi.com'
+const API_KEY = '8489e969'
+
+const moviesContainer = document.getElementById('movies')
 // Get the movie IDs from local storage
 let movieIdArray = JSON.parse(localStorage.getItem("movieData")) || []
 
@@ -27,8 +31,7 @@ function removeMovie(imdbID) {
 
 // Fetch and display movie details
 async function fetchAndDisplayMovieDetails(imdbID, callback) {
-    const apiUrl = `https://omdbapi.com/?i=${imdbID}&apikey=8489e969`
-    const response = await fetch(apiUrl)
+    const response = await fetch(`${BASE_API_URL}?i=${imdbID}&apikey=${API_KEY}`)
     const data = await response.json()
     const getMovieDetailsHtmlString = `
         <article class='movies__movie'>
