@@ -1,19 +1,21 @@
-// Constants
+// Constants for API access
 const BASE_API_URL = 'https://omdbapi.com'
 const API_KEY = '8489e969'
 
-// DOM Elements 
+// DOM Element references
 const searchBtn = document.getElementById('search-btn')
 const searchInput = document.getElementById('search-input')
 const searchForm = document.getElementById('search-form')
 const moviesContainer = document.getElementById('movies')
 
-// Get the movie IDs from local storage
+// Retrieve movie IDs from local storage or initialize as an empty array
 let movieIdArray = JSON.parse(localStorage.getItem("movieData")) || []
 console.log(movieIdArray)
 
+// Add event listener for the movie search form submission
 searchForm.addEventListener('submit', handleSearchSubmit)
 
+// Handle form submission event
 function handleSearchSubmit(e) {
     e.preventDefault()
     const searchTerm = searchInput.value
@@ -21,7 +23,7 @@ function handleSearchSubmit(e) {
     searchInput.value = ""
 }
 
-// Initial screen setup
+// Display default landing screen
 function defaultScreen(){
     moviesContainer.innerHTML = `
         <section class='movies__default-screen'>
@@ -32,7 +34,7 @@ function defaultScreen(){
 }
 defaultScreen()
 
-// Fetch movie data from OMDB API
+// Fetch a list of movies based on the provided search term
 async function searchMovies(searchTerm) {
     const response = await fetch(`${BASE_API_URL}?s=${searchTerm}&apikey=${API_KEY}`)
     const data = await response.json()
@@ -45,12 +47,14 @@ async function searchMovies(searchTerm) {
     }
 }
 
+// Fetch detailed information for a specific movie by its IMDb ID
 async function fetchMovieDetails(imdbID) {
     const apiUrl = `${BASE_API_URL}?i=${imdbID}&apikey=${API_KEY}`;
     const response = await fetch(apiUrl);
     return await response.json();
 }
 
+// Add movie to the watchlist by storing its IMDb ID in local storage
 function addToWatchList(imdbID) {
     if (!movieIdArray.includes(imdbID)) {
         movieIdArray.push(imdbID);
@@ -59,6 +63,7 @@ function addToWatchList(imdbID) {
     }
 }
 
+// Construct HTML string to display movie details
 function constructMovieHTML(data) {
     return `
         <article class='movies__movie'>
@@ -85,6 +90,7 @@ function constructMovieHTML(data) {
     `
 }
 
+// Fetch and display detailed movie information
 async function fetchAndDisplayMovieDetails(imdbID) {
     moviesContainer.innerHTML = "";
     
