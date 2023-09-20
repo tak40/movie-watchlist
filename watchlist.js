@@ -1,9 +1,13 @@
+// Constants for API access
 const BASE_API_URL = 'https://omdbapi.com'
 const API_KEY = '8489e969'
+
 const moviesContainer = document.getElementById('movies')
+
+// Retrieve movie IDs saved in local storage or default to an empty array if none exist.
 let movieIdArray = JSON.parse(localStorage.getItem("movieData")) || []
 
-// Initial screen setup
+// Displays a default message when the watchlist is empty.
 function defaultScreen() {
     const defaultScreenHtmlString = `
         <section class='movies__default-screen'>
@@ -16,13 +20,14 @@ function defaultScreen() {
     moviesContainer.innerHTML = defaultScreenHtmlString
 }
 
-// Fetch movie data from OMDB API
+// Retrieve detailed movie information using the provided IMDb ID from OMDB API.
 async function fetchMovieDetails(imdbID) {
     const apiUrl = `${BASE_API_URL}?i=${imdbID}&apikey=${API_KEY}`;
     const response = await fetch(apiUrl);
     return await response.json();
 }
 
+// Generate HTML markup for a movie using its details.
 function constructMovieHTML(data) {
     return `
         <article class='movies__movie'>
@@ -49,18 +54,21 @@ function constructMovieHTML(data) {
     `
 }
 
-// Remove movie from watchlist
+// Removes a movie from the watchlist based on its IMDb ID.
 function removeMovie(imdbID) {
     movieIdArray = movieIdArray.filter(id => id !== imdbID);
     localStorage.setItem("movieData", JSON.stringify(movieIdArray));
     renderMovies();
 }
 
+// Inserts the provided movie HTML into the movies container 
+// and attaches event listeners to the 'Remove' buttons.
 function renderMovieHtml(movieHtml) {
     moviesContainer.innerHTML += movieHtml;
     attachRemoveBtnListeners();
 }
 
+// Add click event listeners to the 'Remove' buttons allowing for movie removal.
 function attachRemoveBtnListeners() {
     const removeBtns = document.querySelectorAll('.movies__remove-btn');
     removeBtns.forEach(btn => {
@@ -71,8 +79,11 @@ function attachRemoveBtnListeners() {
     });
 }
 
+// Fetch and display the list of movies saved in the watchlist.
 async function renderMovies() {
     moviesContainer.innerHTML = "";
+
+    // Populate movies or show default message based on movies in the watchlist.
     if (movieIdArray.length === 0) {
         defaultScreen();
     } else {
