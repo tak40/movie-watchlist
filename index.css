@@ -3,14 +3,14 @@
     /* COLORS */
     --clr-primary: #1C1C1C;
     --clr-secondary: #374151;
-    --clr-accent: #dcdcdc;   /* combines hover and other similar shades */
+    --clr-accent: #dcdcdc;
     --clr-accent-gold: #d4af37;
     --clr-hover-bg: rgba(220, 220, 220, 0.6);  /* 60% opacity of --clr-accent */
     --clr-active-bg: rgba(220, 220, 220, 0.7); /* 70% opacity of --clr-accent */
-    --clr-active: #c2c2c2;  /* a slightly darker shade than --clr-accent */
+    --clr-active: #c2c2c2;  
     --clr-active-text: #1C1C1C;
-    --clr-text-light: #F9FAFB; /* an intuitive name for a light text color */
-    --clr-text-dark: #0d1618;  /* combines active-text and other dark shades */
+    --clr-text-light: #F9FAFB; 
+    --clr-text-dark: #0d1618;  
     --clr-placeholder: #6B7280;
     --clr-main-bg: #DFDDDD;
 
@@ -34,7 +34,6 @@
 
 *, *::before, *::after {
     box-sizing: border-box;
-    /* outline: 2px dotted tomato; */
 }
 
 img, picture, svg, video {
@@ -246,10 +245,10 @@ body {
 /* MID ROW */
 
 .movies__info-middle {
+    display: flex;
+    justify-content: space-between;
     font-size: var(--font-size-small);
     line-height: 20px;
-    justify-content: space-between;
-    padding-right: 3em;
     color: var(--clr-text-dark);
     width: 100%;
 }
@@ -257,21 +256,23 @@ body {
 .movies__runtime,
 .movies__genre {
     margin: 0;
+    width: 100%;
 }
 
 .movies__watchlist-btn,
 .movies__remove-btn,
 .movies__default-nav-text {
     display: flex;
+    justify-content: flex-end;
     align-items: center;
-    padding: 0.125em 0.25em;
     gap: 0.5em;
     background: none;
     border: none;
+    width: 100%;
 }
 
 .movies__watchlist-icon {
-    width: 1.25em;
+    padding-left: 1em;
 }
 
 /* BOTTOM ROW */
@@ -382,9 +383,40 @@ body {
         font-size: var(--font-size-xsmall);
         padding: 0.5em 1em;
     }
+
+    .movies__genre {
+        font-size: var(--font-size-xsmall);
+    }
+
+    .movies__genre,
+    .movies__plot {
+        line-height: 1.4;
+    }
+
+    .movies__watchlist-btn,
+    .movies__remove-btn,
+    .movies__default-nav-text {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.5em 0.25em;
+    }
+
+    .movies__watchlist-icon {
+        padding-left: 0;
+    }
 }
 
 /* Desktop */
 @media (min-width: 1024px) {
     /* Desktop styles go here */
+
+    .search {
+        max-width: 800px;
+    }
+
+    .movies {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 }
