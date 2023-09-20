@@ -45,14 +45,22 @@ async function searchMovies(searchTerm) {
     }
 }
 
-// Fetch and display movie details
-async function fetchAndDisplayMovieDetails(imdbID) {
-    moviesContainer.innerHTML = ""
-    const apiUrl = `https://omdbapi.com/?i=${imdbID}&apikey=8489e969`
-    const response = await fetch(apiUrl)
-    const data = await response.json()
-    console.log(data)
-    const htmlString = `
+async function fetchMovieDetails(imdbID) {
+    const apiUrl = `${BASE_API_URL}?i=${imdbID}&apikey=${API_KEY}`;
+    const response = await fetch(apiUrl);
+    return await response.json();
+}
+
+function addToWatchList(imdbID) {
+    if (!movieIdArray.includes(imdbID)) {
+        movieIdArray.push(imdbID);
+        localStorage.setItem("movieData", JSON.stringify(movieIdArray));
+        console.log(movieIdArray);
+    }
+}
+
+function constructMovieHTML(data) {
+    return `
         <article class='movies__movie'>
             <img class='movies__poster' src='${data.Poster}' alt='Movie poster for ${data.Title}'>
             <div class='movies__info'>
@@ -64,7 +72,7 @@ async function fetchAndDisplayMovieDetails(imdbID) {
                 <div class='movies__info-middle'>
                     <p class='movies__runtime'>${data.Runtime}</p>
                     <p class='movies__genre'>${data.Genre}</p>
-                    <button class='movies__watchlist-btn' data-imdbID=${imdbID}>
+                    <button class='movies__watchlist-btn' data-imdbid=${data.imdbID}>
                         <img src="images/plus.svg" class='movies__watchlist-icon' alt='Plus Icon'> 
                         Watchlist
                     </button>
@@ -75,20 +83,85 @@ async function fetchAndDisplayMovieDetails(imdbID) {
             </div>
         </article>
     `
-    moviesContainer.innerHTML += htmlString
-    
-    // Listen for watchlist button click
-    const watchListBtns = document.querySelectorAll('.movies__watchlist-btn')
-    watchListBtns.forEach(function(btn) {
-        btn.addEventListener('click', function(e) {
-            const movieId = e.target.dataset.imdbid
-            // Check if the movie is already in the array
-
-            if (!movieIdArray.includes(movieId)) {
-                movieIdArray.push(movieId)
-                localStorage.setItem("movieData", JSON.stringify(movieIdArray))
-                console.log(movieIdArray)
-            }
-        })
-    })
 }
+
+async function fetchAndDisplayMovieDetails(imdbID) {
+    moviesContainer.innerHTML = "";
+    
+    // Fetch movie details
+    const movieData = await fetchMovieDetails(imdbID);
+
+    // Construct and append the movie's HTML to the container
+    const movieHTML = constructMovieHTML(movieData);
+    moviesContainer.innerHTML += movieHTML;
+
+    // Event delegation for the watchlist button
+    moviesContainer.addEventListener('click', function(e) {
+        if (e.target.classList.contains('movies__watchlist-btn')) {
+            const movieId = e.target.dataset.imdbid;
+            addToWatchList(movieId);
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// // Fetch and display movie details
+// async function fetchAndDisplayMovieDetails(imdbID) {
+//     moviesContainer.innerHTML = ""
+//     const apiUrl = `https://omdbapi.com/?i=${imdbID}&apikey=8489e969`
+//     const response = await fetch(apiUrl)
+//     const data = await response.json()
+//     console.log(data)
+//     const htmlString = `
+//         <article class='movies__movie'>
+//             <img class='movies__poster' src='${data.Poster}' alt='Movie poster for ${data.Title}'>
+//             <div class='movies__info'>
+//                 <div class='movies__info-top'>
+//                     <h3 class='movies__title'>${data.Title}</h3>
+//                     <img src='images/star.svg' class='movies__star-icon' alt='Star Icon'>
+//                     <p class='movies__rating'>${data.imdbRating}</p>
+//                 </div>
+//                 <div class='movies__info-middle'>
+//                     <p class='movies__runtime'>${data.Runtime}</p>
+//                     <p class='movies__genre'>${data.Genre}</p>
+//                     <button class='movies__watchlist-btn' data-imdbID=${imdbID}>
+//                         <img src="images/plus.svg" class='movies__watchlist-icon' alt='Plus Icon'> 
+//                         Watchlist
+//                     </button>
+//                 </div>
+//                 <div class='movies__info-bottom'>
+//                     <p class='movies__plot'>${data.Plot}</p>
+//                 </div>
+//             </div>
+//         </article>
+//     `
+//     moviesContainer.innerHTML += htmlString
+    
+//     // Listen for watchlist button click
+//     const watchListBtns = document.querySelectorAll('.movies__watchlist-btn')
+//     watchListBtns.forEach(function(btn) {
+//         btn.addEventListener('click', function(e) {
+//             const movieId = e.target.dataset.imdbid
+//             // Check if the movie is already in the array
+
+//             if (!movieIdArray.includes(movieId)) {
+//                 movieIdArray.push(movieId)
+//                 localStorage.setItem("movieData", JSON.stringify(movieIdArray))
+//                 console.log(movieIdArray)
+//             }
+//         })
+//     })
+// }

@@ -1,9 +1,6 @@
-// Constants
 const BASE_API_URL = 'https://omdbapi.com'
 const API_KEY = '8489e969'
-
 const moviesContainer = document.getElementById('movies')
-// Get the movie IDs from local storage
 let movieIdArray = JSON.parse(localStorage.getItem("movieData")) || []
 
 // Initial screen setup
@@ -19,21 +16,15 @@ function defaultScreen() {
     moviesContainer.innerHTML = defaultScreenHtmlString
 }
 
-// Remove movie from watchlist
-function removeMovie(imdbID) {
-    movieIdArray = movieIdArray.filter(function(id) {
-        return id !== imdbID
-    })
-    localStorage.setItem("movieData", JSON.stringify(movieIdArray))
-    renderMovies()
+// Fetch movie data from OMDB API
+async function fetchMovieDetails(imdbID) {
+    const apiUrl = `${BASE_API_URL}?i=${imdbID}&apikey=${API_KEY}`;
+    const response = await fetch(apiUrl);
+    return await response.json();
 }
 
-
-// Fetch and display movie details
-async function fetchAndDisplayMovieDetails(imdbID, callback) {
-    const response = await fetch(`${BASE_API_URL}?i=${imdbID}&apikey=${API_KEY}`)
-    const data = await response.json()
-    const getMovieDetailsHtmlString = `
+function constructMovieHTML(data) {
+    return `
         <article class='movies__movie'>
             <img class='movies__poster' src='${data.Poster}' alt='Movie poster for ${data.Title}'>
             <div class='movies__info'>
@@ -45,7 +36,7 @@ async function fetchAndDisplayMovieDetails(imdbID, callback) {
                 <div class='movies__info-middle'>
                     <p class='movies__runtime'>${data.Runtime}</p>
                     <p class='movies__genre'>${data.Genre}</p>
-                    <button class='movies__remove-btn' data-imdbID=${imdbID}>
+                    <button class='movies__remove-btn' data-imdbid=${data.imdbID}>
                         <img src="images/remove.svg" class='movies__remove-icon' alt="Remove Button"> 
                         Remove
                     </button>
@@ -56,37 +47,114 @@ async function fetchAndDisplayMovieDetails(imdbID, callback) {
             </div>
         </article>
     `
-    callback(getMovieDetailsHtmlString)
 }
 
-// Append movie HTML and attach listeners
+// Remove movie from watchlist
+function removeMovie(imdbID) {
+    movieIdArray = movieIdArray.filter(id => id !== imdbID);
+    localStorage.setItem("movieData", JSON.stringify(movieIdArray));
+    renderMovies();
+}
+
 function renderMovieHtml(movieHtml) {
-    moviesContainer.innerHTML += movieHtml
-    attachRemoveBtnListeners()
+    moviesContainer.innerHTML += movieHtml;
+    attachRemoveBtnListeners();
 }
 
-// Attach click listeners to remove buttons
 function attachRemoveBtnListeners() {
     const removeBtns = document.querySelectorAll('.movies__remove-btn');
     removeBtns.forEach(btn => {
         btn.addEventListener('click', function(e) {
-            const movieId = e.target.dataset.imdbid
-            removeMovie(movieId)
-        })
-    })
+            const movieId = e.target.closest('button').dataset.imdbid;
+            removeMovie(movieId);
+        });
+    });
 }
 
-// Renders movies in the watchlist
-function renderMovies() {
-    moviesContainer.innerHTML = ""
+async function renderMovies() {
+    moviesContainer.innerHTML = "";
     if (movieIdArray.length === 0) {
-        defaultScreen()
+        defaultScreen();
     } else {
-        movieIdArray.forEach(function(imdbID) {
-            fetchAndDisplayMovieDetails(imdbID, renderMovieHtml)
-        })
+        for(let imdbID of movieIdArray) {
+            const movieData = await fetchMovieDetails(imdbID);
+            const movieHtml = constructMovieHTML(movieData);
+            renderMovieHtml(movieHtml);
+        } 
     }
 }
-renderMovies()
+renderMovies();
+
+
+
+// // Remove movie from watchlist
+// function removeMovie(imdbID) {
+//     movieIdArray = movieIdArray.filter(function(id) {
+//         return id !== imdbID
+//     })
+//     localStorage.setItem("movieData", JSON.stringify(movieIdArray))
+//     renderMovies()
+// }
+
+
+// // Fetch and display movie details
+// async function fetchAndDisplayMovieDetails(imdbID, callback) {
+//     const response = await fetch(`${BASE_API_URL}?i=${imdbID}&apikey=${API_KEY}`)
+//     const data = await response.json()
+//     const getMovieDetailsHtmlString = `
+//         <article class='movies__movie'>
+//             <img class='movies__poster' src='${data.Poster}' alt='Movie poster for ${data.Title}'>
+//             <div class='movies__info'>
+//                 <div class='movies__info-top'>
+//                     <h3 class='movies__title'>${data.Title}</h3>
+//                     <img src='images/star.svg' class='movies__star-icon'>
+//                     <p class='movies__rating'>${data.imdbRating}</p>
+//                 </div>
+//                 <div class='movies__info-middle'>
+//                     <p class='movies__runtime'>${data.Runtime}</p>
+//                     <p class='movies__genre'>${data.Genre}</p>
+//                     <button class='movies__remove-btn' data-imdbID=${imdbID}>
+//                         <img src="images/remove.svg" class='movies__remove-icon' alt="Remove Button"> 
+//                         Remove
+//                     </button>
+//                 </div>
+//                 <div class='movies__info-bottom'>
+//                     <p class='movies__plot'>${data.Plot}</p>
+//                 </div>
+//             </div>
+//         </article>
+//     `
+//     callback(getMovieDetailsHtmlString)
+// }
+
+// // Append movie HTML and attach listeners
+// function renderMovieHtml(movieHtml) {
+//     moviesContainer.innerHTML += movieHtml
+//     attachRemoveBtnListeners()
+// }
+
+// // Attach click listeners to remove buttons
+// function attachRemoveBtnListeners() {
+//     const removeBtns = document.querySelectorAll('.movies__remove-btn');
+//     removeBtns.forEach(btn => {
+//         btn.addEventListener('click', function(e) {
+//             const movieId = e.target.dataset.imdbid
+//             removeMovie(movieId)
+//         })
+//     })
+// }
+
+// // Renders movies in the watchlist
+// function renderMovies() {
+//     moviesContainer.innerHTML = ""
+//     if (movieIdArray.length === 0) {
+//         defaultScreen()
+//     } else {
+//         movieIdArray.forEach(function(imdbID) {
+//             fetchAndDisplayMovieDetails(imdbID, renderMovieHtml)
+//         })
+//     }
+// }
+// renderMovies()
 
 
