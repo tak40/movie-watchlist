@@ -384,6 +384,10 @@ body {
         padding: 0.5em 1em;
     }
 
+    .movies__info-middle {
+        margin: 0.25em 0;
+    }
+
     .movies__genre {
         font-size: var(--font-size-xsmall);
     }
